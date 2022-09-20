@@ -32,7 +32,7 @@ List<Content> page1 = [
       ),
       Content(
           questionText:
-              r'Avoir \(\cos(\theta) =-\frac{1}{2}\) et \(\sin(\theta) = \frac{\sqrt{3}}{2}\). Alors',
+              r'Avoir hhh \(\cos(\theta) =-\frac{1}{2}\) et \(\sin(\theta) = \frac{\sqrt{3}}{2}\). Alors',
           awnser1: r'\theta = \frac{2\pi}{3}',
           awnser2: r'\theta = \frac{\pi}{6}',
           awnser3: r'\theta = -\frac{2\pi}{3}',
