@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maths_quiz/sizeConfig.dart';
-import 'package:maths_quiz/startUpPages/welcomeLoginPage.dart';
+import 'authenticate/welcomeLoginPage.dart';
+
 
 class SplashScreenPage2 extends StatefulWidget {
   const SplashScreenPage2({Key? key}) : super(key: key);

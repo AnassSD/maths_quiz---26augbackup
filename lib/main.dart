@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:maths_quiz/ExercicesPages/exercicePage.dart';
 import 'package:maths_quiz/account/account.dart';
 import 'package:maths_quiz/account/profile.dart';
-import 'package:maths_quiz/auth_controller.dart';
+import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/splashscreen.dart';
 import 'ExercicesPages/exercicesList.dart';
 import 'constants/constantsColors.dart';
