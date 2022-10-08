@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -50,7 +52,7 @@ class _WelcomeLoginPageState extends State<WelcomeLoginPage> {
                           TextSpan(
                             text: 'every',
                             style: TextStyle(
-                              color: Color(0xff615EA8),
+                              color: const Color(0xff615EA8),
                               fontWeight: FontWeight.w800,
                               fontSize: SizeConfig.safeBlockHorizontal * 13,
                               fontFamily: 'OpenSans',
@@ -141,7 +143,7 @@ class _WelcomeLoginPageState extends State<WelcomeLoginPage> {
                       onPressed: () {
                         setState(() {
                           Get.to(
-                            () => SignUpPage(),
+                            () => const SignUpPage(),
                             transition: Transition.rightToLeft,
                           );
                         });
@@ -170,7 +172,7 @@ class _WelcomeLoginPageState extends State<WelcomeLoginPage> {
                         TextButton(
                           onPressed: () {
                             Get.to(
-                              () => SignInPage(),
+                              () => const SignInPage(),
                               transition: Transition.rightToLeft,
                             );
                           },

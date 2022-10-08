@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import '../../../sizeConfig.dart';
@@ -6,12 +8,12 @@ import 'exercicesListContainer.dart';
 class WidgetCouple extends StatelessWidget {
   String? image1, image2, text1, text2, root1, root2;
   WidgetCouple(
-      {this.image1,
+      {Key? key, this.image1,
       this.image2,
       this.text1,
       this.text2,
       this.root1,
-      this.root2});
+      this.root2}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

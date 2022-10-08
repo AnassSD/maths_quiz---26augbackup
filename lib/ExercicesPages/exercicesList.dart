@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:maths_quiz/ExercicesPages/exercicesBox.dart';
 
@@ -83,7 +85,7 @@ class _ExercicesListState extends State<ExercicesList> {
         actions: [
           Theme(
             data: Theme.of(context).copyWith(
-              dividerTheme: DividerThemeData(
+              dividerTheme: const DividerThemeData(
                 color: Colors.grey,
               ),
             ),
@@ -103,7 +105,7 @@ class _ExercicesListState extends State<ExercicesList> {
               itemBuilder: (context) => [
                 //TODO: Finish the filter section
                 //TODO: Make Search work
-                PopupMenuItem(
+                const PopupMenuItem(
                   child: Text(
                     "Sort by",
                     style: TextStyle(
@@ -113,8 +115,8 @@ class _ExercicesListState extends State<ExercicesList> {
                   ),
                   enabled: false,
                 ),
-                PopupMenuDivider(),
-                PopupMenuItem(
+                const PopupMenuDivider(),
+                const PopupMenuItem(
                   child: Text('Age'),
                 ),
               ],

@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maths_quiz/account/profile.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
-import 'package:maths_quiz/constants/constantsTextStyles.dart';
 import 'package:maths_quiz/sizeConfig.dart';
-import 'package:maths_quiz/userData/userData.dart';
-
-import '../userData/userData.dart';
 
 //First name
 bool firstNameIsEditingText = false;
@@ -53,7 +50,7 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
       return Center(
           child: Theme(
         data: ThemeData(
-          textSelectionTheme: TextSelectionThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
             selectionHandleColor: kViolet,
             selectionColor: kViolet,
             cursorColor: kViolet,
@@ -102,7 +99,7 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
       return Center(
           child: Theme(
         data: ThemeData(
-          textSelectionTheme: TextSelectionThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
             selectionHandleColor: kViolet,
             selectionColor: kViolet,
             cursorColor: kViolet,

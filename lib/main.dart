@@ -7,9 +7,7 @@ import 'package:maths_quiz/ExercicesPages/exercicePage.dart';
 import 'package:maths_quiz/account/account.dart';
 import 'package:maths_quiz/account/profile.dart';
 import 'package:maths_quiz/auth_controller.dart';
-import 'package:maths_quiz/loadingPage.dart';
 import 'package:maths_quiz/splashscreen.dart';
-import 'package:maths_quiz/startUpPages/welcomeLoginPage.dart';
 import 'ExercicesPages/exercicesList.dart';
 import 'constants/constantsColors.dart';
 import 'sizeConfig.dart';
@@ -32,8 +30,8 @@ Future<void> main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/home': (context) => Quiz(),
-        '/account': (context) => Profile(),
+        '/home': (context) => const Quiz(),
+        '/account': (context) => const Profile(),
         '/exercicesList': (context) => const ExercicesList(),
         '/exercice': (context) => Exercices(0),
         '/exercice1': (context) => Exercices(1),
@@ -43,10 +41,10 @@ Future<void> main() async {
       theme: ThemeData(
         fontFamily: 'OpenSans',
         primaryColor: kViolet,
-        textSelectionTheme: TextSelectionThemeData(cursorColor: kViolet),
+        textSelectionTheme: const TextSelectionThemeData(cursorColor: kViolet),
         indicatorColor: kViolet,
       ),
-      home: SplashScreenPage(),
+      home: const SplashScreenPage(),
     ),
   );
 }
@@ -54,6 +52,8 @@ Future<void> main() async {
 class Quiz extends StatefulWidget {
   static PageController pageController = PageController(initialPage: 0);
   static bool mainPageLoaded = false;
+
+  const Quiz({Key? key}) : super(key: key);
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -67,6 +67,7 @@ class _QuizState extends State<Quiz> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         Quiz.mainPageLoaded = true;
+        // ignore: avoid_print
         print('Main Page loaded');
       });
     });
@@ -138,7 +139,7 @@ class _QuizState extends State<Quiz> {
             });
           },
           scrollDirection: Axis.horizontal,
-          children: [
+          children: const [
             MainPage(),
             ExercicesList(),
             AccMainPage(),

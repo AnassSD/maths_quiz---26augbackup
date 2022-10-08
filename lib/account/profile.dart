@@ -1,4 +1,3 @@
-import 'package:interactiveviewer_gallery/interactiveviewer_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maths_quiz/account/PublicProfilePage.dart';
@@ -13,6 +12,8 @@ String firstName = 'Anas', lastName = 'Said', username = 'saidanas789';
 //
 class Profile extends StatefulWidget {
   static String? firstName, lastName, username;
+
+  const Profile({Key? key}) : super(key: key);
   @override
   State<Profile> createState() => _ProfileState();
 }
@@ -280,7 +281,7 @@ class _ProfileState extends State<Profile> {
                                 )),
                                 isScrollControlled: true,
                                 context: context,
-                                builder: (context) => PublicProfilePage(),
+                                builder: (context) => const PublicProfilePage(),
                               );
                             });
                           },
@@ -330,6 +331,7 @@ class _ProfileState extends State<Profile> {
   }
 }
 
+// ignore: must_be_immutable
 class ProfileButtons extends StatefulWidget {
   String? text;
   Function()? onTap;
@@ -371,6 +373,7 @@ class _ProfileButtonsState extends State<ProfileButtons> {
   }
 }
 
+// ignore: must_be_immutable
 class ProfileActionButtons extends StatefulWidget {
   String? text;
   Function()? onTap;

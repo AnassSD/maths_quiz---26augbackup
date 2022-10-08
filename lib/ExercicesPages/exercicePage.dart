@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,9 +17,10 @@ const kGreyShadowColor = Color.fromARGB(255, 224, 219, 218);
 QuizBrain quiz = QuizBrain();
 String buttonLabel = 'Check';
 
+// ignore: must_be_immutable
 class Exercices extends StatefulWidget {
   int? pageNumber;
-  Exercices(this.pageNumber);
+  Exercices(this.pageNumber, {Key? key}) : super(key: key);
   @override
   State<Exercices> createState() => _ExercicesState();
 }
@@ -58,7 +61,7 @@ class _ExercicesState extends State<Exercices> {
     Future<int> resultSync() async {
       await showDialog(
         context: context,
-        builder: (BuildContext context) => ResultPage(),
+        builder: (BuildContext context) => const ResultPage(),
       );
       await neutralize();
       return 0;
@@ -73,12 +76,12 @@ class _ExercicesState extends State<Exercices> {
         child: Column(
           children: [
             // Exit, Progress, hearts left place
-            ExercicesPageHeading(),
+            const ExercicesPageHeading(),
             // Questions widget
             Container(
               height: SizeConfig.safeBlockVertical * 92,
               decoration: BoxDecoration(
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage("images/math.png"),
                   fit: BoxFit.cover,
                 ),
@@ -128,7 +131,7 @@ class _ExercicesState extends State<Exercices> {
                         GestureDetector(
                           child: Container(
                             child: Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Center(
                                 child: Math.tex(
                                   awnser1!,
@@ -159,7 +162,7 @@ class _ExercicesState extends State<Exercices> {
                               ],
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            margin: EdgeInsets.symmetric(vertical: 7),
+                            margin: const EdgeInsets.symmetric(vertical: 7),
                           ),
                           onTap: () {
                             setState(() {
@@ -180,7 +183,7 @@ class _ExercicesState extends State<Exercices> {
                         GestureDetector(
                           child: Container(
                             child: Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Center(
                                 child: Math.tex(
                                   awnser2!,
@@ -211,7 +214,7 @@ class _ExercicesState extends State<Exercices> {
                               ],
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            margin: EdgeInsets.symmetric(vertical: 7),
+                            margin: const EdgeInsets.symmetric(vertical: 7),
                           ),
                           onTap: () {
                             setState(() {
@@ -231,7 +234,7 @@ class _ExercicesState extends State<Exercices> {
                         GestureDetector(
                           child: Container(
                             child: Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Center(
                                 child: Math.tex(
                                   awnser3!,
@@ -262,7 +265,7 @@ class _ExercicesState extends State<Exercices> {
                               ],
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            margin: EdgeInsets.symmetric(vertical: 7),
+                            margin: const EdgeInsets.symmetric(vertical: 7),
                           ),
                           onTap: () {
                             setState(() {
@@ -281,7 +284,7 @@ class _ExercicesState extends State<Exercices> {
                         GestureDetector(
                           child: Container(
                             child: Padding(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Center(
                                 child: Math.tex(
                                   awnser4!,
@@ -312,7 +315,7 @@ class _ExercicesState extends State<Exercices> {
                               ],
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            margin: EdgeInsets.symmetric(vertical: 7),
+                            margin: const EdgeInsets.symmetric(vertical: 7),
                           ),
                           onTap: () {
                             setState(() {
@@ -341,7 +344,7 @@ class _ExercicesState extends State<Exercices> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
                                 SizeConfig.safeBlockHorizontal * 3),
-                            color: Color.fromARGB(255, 234, 230, 253)),
+                            color: const Color.fromARGB(255, 234, 230, 253)),
                         child: Text(
                           buttonLabel,
                           textAlign: TextAlign.center,
@@ -392,6 +395,7 @@ class _ExercicesState extends State<Exercices> {
                                 }
                                 trueAnswers++;
                                 player.play('CorrectAnswerSound.mp3');
+                                // ignore: avoid_print
                                 print('Correct');
                               } else {
                                 //what to do if it's wrong answer
@@ -413,6 +417,7 @@ class _ExercicesState extends State<Exercices> {
                                 }
                                 falseAnswers++;
                                 player.play('WrongAnswerSound.mp3');
+                                // ignore: avoid_print
                                 print('Wrong');
                                 if (livesNumber > 0) livesNumber--;
                               }
@@ -450,7 +455,7 @@ class _ExercicesPageHeadingState extends State<ExercicesPageHeading> {
         // show the confirm dialog
         await showDialog(
           context: context,
-          builder: (_) => ConfirmationDialog(),
+          builder: (_) => const ConfirmationDialog(),
         );
         return willLeave;
       },
@@ -470,12 +475,12 @@ class _ExercicesPageHeadingState extends State<ExercicesPageHeading> {
                 neutralize();
                 showDialog(
                   context: context,
-                  builder: (BuildContext context) => ConfirmationDialog(),
+                  builder: (BuildContext context) => const ConfirmationDialog(),
                 );
               },
               child: FaIcon(
                 FontAwesomeIcons.angleLeft,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0),
                 size: SizeConfig.safeBlockHorizontal * 8,
               ),
             ),
@@ -518,7 +523,7 @@ class ConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(30.0),
         ),
@@ -573,7 +578,7 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(30.0),
         ),

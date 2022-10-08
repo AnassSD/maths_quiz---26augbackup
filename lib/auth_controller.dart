@@ -1,16 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:maths_quiz/account/profile.dart';
-import 'package:maths_quiz/loadingPage.dart';
-import 'package:maths_quiz/main.dart';
-import 'package:maths_quiz/splashscreen.dart';
 import 'package:maths_quiz/splashscreen2.dart';
-import 'package:maths_quiz/startUpPages/SignInPage.dart';
-import 'package:maths_quiz/startUpPages/welcomeLoginPage.dart';
-import 'package:maths_quiz/startUpPages/welcomePage.dart';
 import 'package:maths_quiz/verifyEmail.dart';
 
 class AuthController extends GetxController {
@@ -30,14 +22,13 @@ class AuthController extends GetxController {
 
   _initialScreen(User? user) {
     if (user == null) {
-      print('Login page');
+      //print('Login page');
       Get.offAll(
-        () => SplashScreenPage2(),
-        //() => LoadingAnimationPage(),
+        () => const SplashScreenPage2(),
       );
     } else {
       Get.offAll(
-        () => VerifyEmailPage(),
+        () => const VerifyEmailPage(),
       );
     }
   }
@@ -53,7 +44,7 @@ class AuthController extends GetxController {
         'User message',
         backgroundColor: Colors.redAccent,
         snackPosition: SnackPosition.BOTTOM,
-        titleText: Text(
+        titleText: const Text(
           'Account creation failed',
           style: TextStyle(
             color: Colors.white,
@@ -61,7 +52,7 @@ class AuthController extends GetxController {
         ),
         messageText: Text(
           e.toString(),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -87,7 +78,7 @@ class AuthController extends GetxController {
         'Login message',
         backgroundColor: Colors.redAccent,
         snackPosition: SnackPosition.BOTTOM,
-        titleText: Text(
+        titleText: const Text(
           'Login failed',
           style: TextStyle(
             color: Colors.white,
@@ -95,7 +86,7 @@ class AuthController extends GetxController {
         ),
         messageText: Text(
           e.toString(),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),

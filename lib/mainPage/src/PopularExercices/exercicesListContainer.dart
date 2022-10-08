@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
 
@@ -8,7 +10,7 @@ class ExercicesListContainer extends StatelessWidget {
   String? image;
   String? text;
   String? root;
-  ExercicesListContainer({this.side, this.image, this.text, this.root});
+  ExercicesListContainer({Key? key, this.side, this.image, this.text, this.root}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

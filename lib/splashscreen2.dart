@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:maths_quiz/sizeConfig.dart';
 import 'package:maths_quiz/startUpPages/welcomeLoginPage.dart';
@@ -14,11 +13,11 @@ class SplashScreenPage2 extends StatefulWidget {
 class _SplashScreenPageState2 extends State<SplashScreenPage2> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Get.offAll(
-        () => WelcomeLoginPage(),
+        () => const WelcomeLoginPage(),
         transition: Transition.fade,
-        duration: Duration(
+        duration: const Duration(
           milliseconds: 500,
         ),
       );

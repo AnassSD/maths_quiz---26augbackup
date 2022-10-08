@@ -1,18 +1,13 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:maths_quiz/account/profile.dart';
 import 'package:maths_quiz/auth_controller.dart';
-import 'package:maths_quiz/constants/constantsColors.dart';
-import 'package:maths_quiz/startUpPages/welcomeLoginPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/constantsTextStyles.dart';
 import '../sizeConfig.dart';
-import '../userData/userData.dart';
 import 'SignUpPage.dart';
 
 class SignInPage extends StatefulWidget {
@@ -29,7 +24,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
       ),
       child: Scaffold(
@@ -60,7 +55,7 @@ class _SignInPageState extends State<SignInPage> {
                     GestureDetector(
                       child: FaIcon(
                         FontAwesomeIcons.angleLeft,
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         size: SizeConfig.safeBlockHorizontal * 8,
                       ),
                       onTap: () {
@@ -137,7 +132,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ),
                           backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 46, 55, 70),
+                            const Color.fromARGB(255, 46, 55, 70),
                           ),
                           padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(
@@ -166,7 +161,7 @@ class _SignInPageState extends State<SignInPage> {
                         Text(
                           'Dont have an account?',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 46, 55, 70),
+                            color: const Color.fromARGB(255, 46, 55, 70),
                             fontWeight: FontWeight.w500,
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
                           ),
@@ -175,7 +170,7 @@ class _SignInPageState extends State<SignInPage> {
                         TextButton(
                           onPressed: () {
                             Get.off(
-                              SignUpPage(),
+                              const SignUpPage(),
                               transition: Transition.rightToLeft,
                             );
                           },
@@ -212,14 +207,14 @@ class UserDataInputWhite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       onChanged: (value) {},
       controller: textEditingController,
       decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
         suffixIcon: Icon(
@@ -255,15 +250,15 @@ class UserDataPasswordInputWhite extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       cursorColor: Colors.white,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       obscureText: true,
       onChanged: (value) {},
       controller: textEditingController,
       decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
         suffixIcon: Icon(

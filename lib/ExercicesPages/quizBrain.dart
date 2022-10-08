@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class Content {
   String? title, awnser1, awnser2, awnser3, awnser4;
   String? questionText;

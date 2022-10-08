@@ -1,6 +1,6 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key? key, required this.email}) : super(key: key);

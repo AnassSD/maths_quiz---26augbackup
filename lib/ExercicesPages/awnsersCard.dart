@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
@@ -21,7 +23,7 @@ class _AwnsersChoicesCartState extends State<AwnsersChoicesCart> {
     return GestureDetector(
       child: Container(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Center(
             child: Text(
               textData!,
@@ -30,8 +32,8 @@ class _AwnsersChoicesCartState extends State<AwnsersChoicesCart> {
           ),
         ),
         decoration: BoxDecoration(
-          color:color,
-          boxShadow: [
+          color: color,
+          boxShadow: const [
             //background color of box
             BoxShadow(
               color: Color.fromARGB(255, 224, 219, 218),
@@ -45,7 +47,7 @@ class _AwnsersChoicesCartState extends State<AwnsersChoicesCart> {
           ],
           borderRadius: BorderRadius.circular(20),
         ),
-        margin: EdgeInsets.symmetric(vertical: 7),
+        margin: const EdgeInsets.symmetric(vertical: 7),
       ),
       onTap: () {
         setState(() {

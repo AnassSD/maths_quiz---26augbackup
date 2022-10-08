@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:maths_quiz/main.dart';
@@ -16,11 +16,11 @@ class LoadingAnimationPage extends StatefulWidget {
 class _LoadingAnimationPageState extends State<LoadingAnimationPage> {
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 3500), () {
+    Future.delayed(const Duration(milliseconds: 3500), () {
       Get.offAll(
-        () => Quiz(),
+        () => const Quiz(),
         transition: Transition.rightToLeft,
-        duration: Duration(
+        duration: const Duration(
           milliseconds: 500,
         ),
       );

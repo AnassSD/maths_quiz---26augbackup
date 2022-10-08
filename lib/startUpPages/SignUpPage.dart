@@ -1,20 +1,19 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:maths_quiz/account/profile.dart';
 import 'package:maths_quiz/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/constantsTextStyles.dart';
 import '../sizeConfig.dart';
-import '../userData/userData.dart';
 import 'SignInPage.dart';
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
+
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -29,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
       ),
       child: Scaffold(
@@ -59,7 +58,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     GestureDetector(
                       child: FaIcon(
                         FontAwesomeIcons.angleLeft,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                        color: const Color.fromARGB(255, 0, 0, 0),
                         size: SizeConfig.safeBlockHorizontal * 8,
                       ),
                       onTap: () {
@@ -89,7 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        SizedBox(
                           width: SizeConfig.safeBlockHorizontal * 35,
                           child: UserDataInput(
                             textEditingController: nameController,
@@ -98,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             hintText: 'Type your first name',
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: SizeConfig.safeBlockHorizontal * 45,
                           child: UserDataInput(
                             textEditingController: lastNameController,
@@ -146,7 +145,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 46, 55, 70),
+                            const Color.fromARGB(255, 46, 55, 70),
                           ),
                           padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(
@@ -182,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         TextButton(
                           onPressed: () {
                             Get.off(
-                              () => SignInPage(),
+                              () => const SignInPage(),
                               transition: Transition.rightToLeft,
                             );
                           },

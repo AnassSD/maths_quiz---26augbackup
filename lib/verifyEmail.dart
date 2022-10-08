@@ -1,10 +1,9 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 import 'package:maths_quiz/sizeConfig.dart';
 
@@ -29,7 +28,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     if (!isEmailVerified) {
       sendVerificationEmail();
       timer = Timer.periodic(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
     }
@@ -56,8 +55,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       setState(() {
         canResendEmail = false;
       });
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 5));
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
     }
   }
@@ -126,7 +126,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                         ),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 46, 55, 70),
+                        const Color.fromARGB(255, 46, 55, 70),
                       ),
                       padding: MaterialStateProperty.all(
                         EdgeInsets.symmetric(
@@ -157,7 +157,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                         ),
                       ),
                       backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 46, 55, 70),
+                        const Color.fromARGB(255, 46, 55, 70),
                       ),
                       padding: MaterialStateProperty.all(
                         EdgeInsets.symmetric(

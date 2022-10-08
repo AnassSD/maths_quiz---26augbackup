@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import '../../sizeConfig.dart';
@@ -11,7 +13,7 @@ class MotivationalQuote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 250, 249, 255),
+        color: const Color.fromARGB(255, 250, 249, 255),
         borderRadius: BorderRadius.circular(SizeConfig.safeBlockHorizontal * 5),
       ),
       height: SizeConfig.safeBlockVertical * 10,

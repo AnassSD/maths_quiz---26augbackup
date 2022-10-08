@@ -1,7 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import '../sizeConfig.dart';
 
 class NextButtonWidget extends StatelessWidget {
+  const NextButtonWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -12,7 +16,7 @@ class NextButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
                 SizeConfig.safeBlockHorizontal * 3),
-            color:  Color.fromARGB(255, 234, 230, 253)),
+            color:  const Color.fromARGB(255, 234, 230, 253)),
         child: Text(
           'Next',
           textAlign: TextAlign.center,
