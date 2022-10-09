@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
 import 'package:maths_quiz/sizeConfig.dart';
-import 'package:maths_quiz/startUpPages/SignUpPage.dart';
+import 'package:maths_quiz/authenticate/SignUpPage.dart';
 
 import 'SignInPage.dart';
 
