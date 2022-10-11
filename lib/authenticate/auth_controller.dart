@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maths_quiz/splashscreen2.dart';
-import 'package:maths_quiz/userData/userData.dart';
+import 'package:maths_quiz/test.dart';
 import 'package:maths_quiz/verifyEmail.dart';
 
 class AuthController extends GetxController {
@@ -30,9 +30,9 @@ class AuthController extends GetxController {
       );
     } else {
       //go to verify page if not verified else go to Home page if verified
-      _userFromFirebaseUser(user);
       Get.offAll(
-        () => const VerifyEmailPage(),
+        //const VerifyEmailPage(),
+        () => const TestWidget(),
       );
     }
   }
@@ -170,8 +170,33 @@ class AuthController extends GetxController {
       'uid': uid,
     });
   }
-
-  UserData? _userFromFirebaseUser(User? user) {
-    return UserData(uid: user!.uid);
-  }
 }
+
+class Acc {
+  String? email, firstname, lastname, uid;
+  Acc({
+    required this.email,
+    required this.firstname,
+    required this.lastname,
+    required this.uid,
+  });
+  static Acc fromJson(Map<String, dynamic> json) => Acc(
+        email: json['email'],
+        firstname: json['firstName'],
+        lastname: json['lastName'],
+        uid: json['uid'],
+      );
+}
+
+Stream<List<Acc>> readUsers() =>
+    FirebaseFirestore.instance.collection('users').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Acc.fromJson(doc.data())).toList());
+
+Widget buildAcc(Acc user) => ListTile(
+      title: Text('${user.email}'),
+      subtitle: Column(children: [
+        Text('${user.firstname}'),
+        Text('${user.lastname}'),
+        Text('${user.uid}'),
+      ]),
+    );
