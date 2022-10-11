@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maths_quiz/splashscreen2.dart';
 import 'package:maths_quiz/test.dart';
-import 'package:maths_quiz/verifyEmail.dart';
 
 class AuthController extends GetxController {
-  String? useruid;
+  static String? useruid;
   //AuthController.instance...
   static AuthController instance = Get.find();
   //email, password, name...
@@ -29,6 +28,7 @@ class AuthController extends GetxController {
         () => const SplashScreenPage2(),
       );
     } else {
+      useruid = auth.currentUser!.uid;
       //go to verify page if not verified else go to Home page if verified
       Get.offAll(
         //const VerifyEmailPage(),
@@ -188,6 +188,7 @@ class Acc {
       );
 }
 
+//For all accounts
 Stream<List<Acc>> readUsers() =>
     FirebaseFirestore.instance.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Acc.fromJson(doc.data())).toList());
@@ -200,3 +201,16 @@ Widget buildAcc(Acc user) => ListTile(
         Text('${user.uid}'),
       ]),
     );
+//
+//For one Account
+Future<Acc?> readUser() async {
+  final docUser = FirebaseFirestore.instance
+      .collection('users')
+      .doc(AuthController.useruid);
+  final snapshot = await docUser.get();
+
+  if (snapshot.exists) {
+    return Acc.fromJson(snapshot.data()!);
+  }
+  return null;
+}
