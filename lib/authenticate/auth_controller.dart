@@ -163,7 +163,7 @@ class AuthController extends GetxController {
 
   Future addUserDetails(
       String name, String lastName, String email, String uid) async {
-    await FirebaseFirestore.instance.collection('users').add({
+    await FirebaseFirestore.instance.collection('users').doc(uid).set({
       'firstName': name,
       'lastName': lastName,
       'email': email,
