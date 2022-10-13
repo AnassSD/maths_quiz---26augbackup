@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maths_quiz/splashscreen2.dart';
-import 'package:maths_quiz/test.dart';
+import '../verifyEmail.dart';
 
 class AuthController extends GetxController {
   static String? useruid;
@@ -31,8 +31,7 @@ class AuthController extends GetxController {
       useruid = auth.currentUser!.uid;
       //go to verify page if not verified else go to Home page if verified
       Get.offAll(
-        //const VerifyEmailPage(),
-        () => const TestWidget(),
+        () => const VerifyEmailPage(),
       );
     }
   }
@@ -85,10 +84,11 @@ class AuthController extends GetxController {
       );
     }
     addUserDetails(
-      name,
-      lastName,
-      email,
-      useruid!,
+      name: name,
+      lastname: lastName,
+      email: email,
+      uid: useruid!,
+      score: 0,
     );
   }
 
@@ -162,29 +162,37 @@ class AuthController extends GetxController {
   }
 
   Future addUserDetails(
-      String name, String lastName, String email, String uid) async {
+      {required String name,
+      required String lastname,
+      required String email,
+      required String uid,
+      required int score}) async {
     await FirebaseFirestore.instance.collection('users').doc(uid).set({
       'firstName': name,
-      'lastName': lastName,
+      'lastName': lastname,
       'email': email,
       'uid': uid,
+      'score': score,
     });
   }
 }
 
 class Acc {
   String? email, firstname, lastname, uid;
+  int? score;
   Acc({
     required this.email,
     required this.firstname,
     required this.lastname,
     required this.uid,
+    required this.score,
   });
   static Acc fromJson(Map<String, dynamic> json) => Acc(
         email: json['email'],
         firstname: json['firstName'],
         lastname: json['lastName'],
         uid: json['uid'],
+        score: json['score'],
       );
 }
 
@@ -193,14 +201,6 @@ Stream<List<Acc>> readUsers() =>
     FirebaseFirestore.instance.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => Acc.fromJson(doc.data())).toList());
 
-Widget buildAcc(Acc user) => ListTile(
-      title: Text('${user.email}'),
-      subtitle: Column(children: [
-        Text('${user.firstname}'),
-        Text('${user.lastname}'),
-        Text('${user.uid}'),
-      ]),
-    );
 //
 //For one Account
 Future<Acc?> readUser() async {
@@ -214,3 +214,13 @@ Future<Acc?> readUser() async {
   }
   return null;
 }
+
+Widget buildAcc(Acc user) => ListTile(
+      title: Text('${user.email}'),
+      subtitle: Column(children: [
+        Text('${user.firstname}'),
+        Text('${user.lastname}'),
+        Text('${user.uid}'),
+        Text('score: ${user.score}'),
+      ]),
+    );
