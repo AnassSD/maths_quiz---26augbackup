@@ -3,8 +3,6 @@ import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/sizeConfig.dart';
 
 class TestWidget extends StatefulWidget {
-  const TestWidget({Key? key}) : super(key: key);
-
   @override
   State<TestWidget> createState() => _TestWidgetState();
 }
@@ -15,29 +13,36 @@ class _TestWidgetState extends State<TestWidget> {
     SizeConfig().init(context);
     return Scaffold(
       body: FutureBuilder<Acc?>(
-          future: readUser(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something  went wrong! ${snapshot.error}');
-            } else if (snapshot.hasData) {
-              final user = snapshot.data;
-
-              return user == null
-                  ? const Center(
-                      child: Text('No User'),
-                    )
-                  : buildAcc(user);
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
+        future: readUser(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something  went wrong! ${snapshot.error}');
+          }
+          //
+          else if (snapshot.hasData) {
+            final user = snapshot.data;
+            return user == null
+                ? const Center(
+                    child: Text('No User'),
+                  )
+                : buildAcc(user);
+          }
+          //
+          else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }
 
 
+
+//
+//
 //To Show List of all content
 //  body: StreamBuilder<List<Acc>>(
 //       stream: readUsers(),

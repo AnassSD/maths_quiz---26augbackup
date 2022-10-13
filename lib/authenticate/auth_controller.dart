@@ -168,8 +168,8 @@ class AuthController extends GetxController {
       required String uid,
       required int score}) async {
     await FirebaseFirestore.instance.collection('users').doc(uid).set({
-      'firstName': name,
-      'lastName': lastname,
+      'firstName': name.capitalize,
+      'lastName': lastname.capitalize,
       'email': email,
       'uid': uid,
       'score': score,
