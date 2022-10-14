@@ -165,7 +165,7 @@ class _SignInPageState extends State<SignInPage> {
                             fontSize: SizeConfig.safeBlockHorizontal * 4,
                           ),
                         ),
-                        //Sign in button
+                        //Sign up button
                         TextButton(
                           onPressed: () {
                             Get.off(

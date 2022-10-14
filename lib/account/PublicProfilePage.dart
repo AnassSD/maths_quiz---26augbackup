@@ -1,8 +1,12 @@
 // ignore_for_file: file_names
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
@@ -154,6 +158,34 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
     );
   }
 
+  String imageUrl = '';
+
+  void pushOrEditImage() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 320,
+      maxWidth: 320,
+      imageQuality: 50,
+    );
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('user/profile/${AuthController.useruid}');
+
+    try {
+      await ref.putFile(File(image!.path));
+      ref.getDownloadURL().then((value) {
+        setState(() {
+          imageUrl = value;
+        });
+      });
+    } catch (e) {
+      // ignore: avoid_print
+      print(
+        e.toString(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -177,14 +209,19 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
               ),
             ),
             //Profile pic changing
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: SizeConfig.safeBlockVertical * 2),
-              child: Text(
-                'Change profile picture',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: SizeConfig.safeBlockHorizontal * 5.5,
+            GestureDetector(
+              onTap: () {
+                pushOrEditImage();
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.safeBlockVertical * 2),
+                child: Text(
+                  'Change profile picture',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: SizeConfig.safeBlockHorizontal * 5.5,
+                  ),
                 ),
               ),
             ),

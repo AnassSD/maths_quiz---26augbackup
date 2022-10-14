@@ -37,35 +37,63 @@ class AuthController extends GetxController {
   }
 
   void register(String email, password, name, lastName) async {
-    try {
-      //create user
-      await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      //
-      useruid = auth.currentUser!.uid;
-      Get.snackbar(
-        'About User',
-        'User message',
-        backgroundColor: Colors.greenAccent,
-        snackPosition: SnackPosition.BOTTOM,
-        titleText: const Text(
-          'Account created succesfully',
-          style: TextStyle(
-            color: Colors.white,
+    if (name != '' && lastName != '') {
+      try {
+        //create user
+        await auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        //
+        useruid = auth.currentUser!.uid;
+        Get.snackbar(
+          'About User',
+          'User message',
+          backgroundColor: Colors.greenAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            'Account created succesfully',
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
-        messageText: const Text(
-          "Your account have been created it, please continue to activate it.",
-          style: TextStyle(
-            color: Colors.white,
+          messageText: const Text(
+            "Your account have been created it, please continue to activate it.",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
+        );
+      }
+      // if the user could not be created
+      catch (e) {
+        Get.snackbar(
+          'About User',
+          'User message',
+          backgroundColor: Colors.redAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            'Account creation failed',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          messageText: Text(
+            e.toString(),
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        );
+      }
+      addUserDetails(
+        name: name,
+        lastname: lastName,
+        email: email,
+        uid: useruid!,
+        score: 0,
       );
-    }
-    // if the user could not be created
-    catch (e) {
+    } else {
       Get.snackbar(
-        'About User',
+        'About name and lastname',
         'User message',
         backgroundColor: Colors.redAccent,
         snackPosition: SnackPosition.BOTTOM,
@@ -75,27 +103,21 @@ class AuthController extends GetxController {
             color: Colors.white,
           ),
         ),
-        messageText: Text(
-          e.toString(),
-          style: const TextStyle(
+        messageText: const Text(
+          'Please enter both of your name and lastname to create your account.',
+          style: TextStyle(
             color: Colors.white,
           ),
         ),
       );
     }
-    addUserDetails(
-      name: name,
-      lastname: lastName,
-      email: email,
-      uid: useruid!,
-      score: 0,
-    );
   }
 
   void login(String email, password) async {
     // log in
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
+
       // after log in
       Get.snackbar(
         'About Login',
@@ -109,7 +131,7 @@ class AuthController extends GetxController {
           ),
         ),
         messageText: const Text(
-          "Welcome back.",
+          "Welcome back!",
           style: TextStyle(
             color: Colors.white,
           ),

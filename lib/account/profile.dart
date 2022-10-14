@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:maths_quiz/account/PublicProfilePage.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
@@ -8,9 +12,9 @@ import 'package:maths_quiz/sizeConfig.dart';
 import 'package:maths_quiz/verifyEmail.dart';
 
 //
-String firstName = userInfo!.firstname!,
-    lastName = userInfo!.lastname!,
-    email = userInfo!.email!;
+// String firstName = userInfo!.firstname!,
+//     lastName = userInfo!.lastname!,
+//     email = userInfo!.email!;
 
 //
 class Profile extends StatefulWidget {
@@ -20,15 +24,71 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+//
   PageController pageController = PageController(initialPage: 0);
+
   int currentIndex = 0;
+
   double containerWidth1 = SizeConfig.safeBlockHorizontal * 10,
       containerWidth2 = 0,
       containerWidth3 = 0;
+
   bool saved = false, profile = true;
 //
+  String imageUrl = '';
+  //
+  void pushOrEditImage() async {
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 320,
+      maxWidth: 320,
+      imageQuality: 50,
+    );
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('user/profile/${AuthController.useruid}');
+
+    try {
+      await ref.putFile(File(image!.path));
+      ref.getDownloadURL().then((value) {
+        setState(() {
+          imageUrl = value;
+        });
+      });
+    } catch (e) {
+      // ignore: avoid_print
+      print(
+        e.toString(),
+      );
+    }
+  }
+  //
+
+  void getImage() async {
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('user/profile/${AuthController.useruid}');
+    try {
+      await ref.getDownloadURL();
+      ref.getDownloadURL().then((value) {
+        setState(() {
+          imageUrl = value;
+        });
+      });
+    } catch (e) {
+      // ignore: avoid_print
+      print('file not found');
+    }
+  }
+
+//
+
   @override
   Widget build(BuildContext context) {
+    //
+
+    getImage();
+
     return Container(
       height: SizeConfig.safeBlockVertical * 92,
       padding: kColumnPadding,
@@ -42,11 +102,51 @@ class _ProfileState extends State<Profile> {
                 top: SizeConfig.safeBlockVertical * 6,
                 bottom: SizeConfig.safeBlockVertical * 3,
               ),
-              child: CircleAvatar(
-                backgroundColor: kViolet,
-                radius: SizeConfig.safeBlockHorizontal * 25,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: SizeConfig.safeBlockHorizontal * 50,
+                      width: SizeConfig.safeBlockHorizontal * 50,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageUrl == ''
+                              ? const AssetImage(
+                                      'images/lightgreybackground.png')
+                                  as ImageProvider
+                              : NetworkImage(imageUrl),
+                          fit: BoxFit.fill,
+                        ),
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: SizeConfig.safeBlockHorizontal * 2.5,
+                      child: GestureDetector(
+                        onTap: () {
+                          pushOrEditImage();
+                        },
+                        child: Container(
+                          height: SizeConfig.safeBlockHorizontal * 11,
+                          width: SizeConfig.safeBlockHorizontal * 11,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: kGrey,
+                          ),
+                          child: Icon(
+                            Icons.edit,
+                            size: SizeConfig.safeBlockHorizontal * 6.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+
             //Name and email
             Padding(
               padding:
@@ -56,12 +156,12 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   children: [
                     Text(
-                      '$firstName $lastName',
+                      '${userInfo!.firstname!} ${userInfo!.lastname!}',
                       style: kProfileNameTextStyle,
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '@${email.substring(0, email.indexOf('@'))}',
+                      '@${userInfo!.email!.substring(0, userInfo!.email!.indexOf('@'))}',
                       style: kInteractionButtonsText,
                     ),
                   ],
@@ -263,7 +363,7 @@ class _ProfileState extends State<Profile> {
                     alignment: Alignment.topLeft,
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.safeBlockHorizontal * 5,
-                        vertical: SizeConfig.safeBlockVertical * 3),
+                        vertical: SizeConfig.safeBlockVertical * 1),
                     child: Column(
                       children: [
                         //PublicProfile
@@ -301,6 +401,10 @@ class _ProfileState extends State<Profile> {
                           onTap: () {
                             AuthController.instance.logOut();
                           },
+                        ),
+                        ProfileActionButtons(
+                          text: 'Delete account',
+                          onTap: () {},
                         ),
                       ],
                     ),
