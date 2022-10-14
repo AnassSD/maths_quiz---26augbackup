@@ -5,14 +5,15 @@ import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
 import 'package:maths_quiz/sizeConfig.dart';
+import 'package:maths_quiz/verifyEmail.dart';
 
 //
-String firstName = 'Anas', lastName = 'Said', username = 'saidanas789';
+String firstName = userInfo!.firstname!,
+    lastName = userInfo!.lastname!,
+    email = userInfo!.email!;
 
 //
 class Profile extends StatefulWidget {
-  static String? firstName, lastName, username;
-
   const Profile({Key? key}) : super(key: key);
   @override
   State<Profile> createState() => _ProfileState();
@@ -28,9 +29,6 @@ class _ProfileState extends State<Profile> {
 //
   @override
   Widget build(BuildContext context) {
-    Profile.firstName = firstName;
-    Profile.lastName = lastName;
-    Profile.username = username;
     return Container(
       height: SizeConfig.safeBlockVertical * 92,
       padding: kColumnPadding,
@@ -63,7 +61,7 @@ class _ProfileState extends State<Profile> {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '@$username',
+                      '@${email.substring(0, email.indexOf('@'))}',
                       style: kInteractionButtonsText,
                     ),
                   ],

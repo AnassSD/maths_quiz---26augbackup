@@ -1,22 +1,25 @@
 // ignore_for_file: file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:maths_quiz/account/profile.dart';
+import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
+import 'package:maths_quiz/constants/constantsTextStyles.dart';
 import 'package:maths_quiz/sizeConfig.dart';
+import 'package:maths_quiz/verifyEmail.dart';
 
 //First name
 bool firstNameIsEditingText = false;
 late TextEditingController firstNameEditingController;
-String initialFirstName = Profile.firstName!;
+String initialFirstName = userInfo!.firstname!;
 
 //
 
 //Last name
 bool lastNameIsEditingText = false;
 late TextEditingController lastNameEditingController;
-String initialLastName = Profile.lastName!;
+String initialLastName = userInfo!.lastname!;
 
 //
 class PublicProfilePage extends StatefulWidget {
@@ -59,6 +62,10 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
         child: TextField(
           onSubmitted: (newValue) {
             setState(() {
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(AuthController.useruid)
+                  .update({'firstName': newValue});
               initialFirstName = newValue;
               firstNameIsEditingText = false;
             });
@@ -108,6 +115,10 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
         child: TextField(
           onSubmitted: (newValue) {
             setState(() {
+              FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(AuthController.useruid)
+                  .update({'lastName': newValue});
               initialLastName = newValue;
               lastNameIsEditingText = false;
             });
@@ -212,6 +223,15 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
                   editLastName(),
                 ],
               ),
+            ),
+            //App restart required text
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 40,
+            ),
+            Text(
+              'Note: Please restart the app to see any made changes.',
+              style: kInteractionButtonsText,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
