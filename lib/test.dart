@@ -3,6 +3,8 @@ import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/sizeConfig.dart';
 
 class TestWidget extends StatefulWidget {
+  const TestWidget({Key? key}) : super(key: key);
+
   @override
   State<TestWidget> createState() => _TestWidgetState();
 }
@@ -21,6 +23,7 @@ class _TestWidgetState extends State<TestWidget> {
           //
           else if (snapshot.hasData) {
             final user = snapshot.data;
+            // ignore: unnecessary_null_comparison
             return user == null
                 ? const Center(
                     child: Text('No User'),
