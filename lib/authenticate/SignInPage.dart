@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:maths_quiz/authenticate/reset_password.dart';
 import '../constants/constantsTextStyles.dart';
 import '../sizeConfig.dart';
 import 'SignUpPage.dart';
@@ -84,7 +85,7 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       height: SizeConfig.safeBlockVertical * 7,
                     ),
-                    //Sign up title
+                    //Sign In title
                     Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: SizeConfig.safeBlockVertical * 1),
@@ -97,8 +98,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
-
-                    //Name input
+                    //Email input
                     UserDataInputWhite(
                       textEditingController: emailController,
                       icon: Icons.email_outlined,
@@ -108,16 +108,40 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       height: SizeConfig.safeBlockVertical * 2,
                     ),
-                    //Email input
+                    //Passwaord input
                     UserDataPasswordInputWhite(
                       textEditingController: passwordController,
                       icon: Icons.key_outlined,
                       label: 'Password',
                       hintText: 'Type your password',
                     ),
-
+                    //Forget password button
                     SizedBox(
-                      height: SizeConfig.safeBlockVertical * 8,
+                      height: SizeConfig.safeBlockVertical * 2,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Get.to(
+                            () => const ResetPasswordPage(),
+                            transition: Transition.downToUp,
+                          );
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.safeBlockHorizontal * 2),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            'Forgot Password?',
+                            style: kSignInButton,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical * 5.5,
                     ),
                     //Sign In button
                     Align(
@@ -153,7 +177,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
 
-                    //Already have an account + login button
+                    //Don't have an account + SignUp
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

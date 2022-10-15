@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/sizeConfig.dart';
@@ -136,6 +137,25 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                           onPressed: () {
                             if (canResendEmail == true) {
                               sendVerificationEmail();
+                            } else {
+                              Get.snackbar(
+                                'About Emailverification',
+                                'User message',
+                                backgroundColor: Colors.redAccent,
+                                snackPosition: SnackPosition.BOTTOM,
+                                titleText: const Text(
+                                  'Resend verification failed.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                messageText: const Text(
+                                  'Verification email has been sent before.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
                             }
                           },
                           style: ButtonStyle(

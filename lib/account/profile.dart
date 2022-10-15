@@ -363,7 +363,7 @@ class _ProfileState extends State<Profile> {
                     alignment: Alignment.topLeft,
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.safeBlockHorizontal * 5,
-                        vertical: SizeConfig.safeBlockVertical * 1),
+                        vertical: SizeConfig.safeBlockVertical * 1.5),
                     child: Column(
                       children: [
                         //PublicProfile
@@ -401,10 +401,6 @@ class _ProfileState extends State<Profile> {
                           onTap: () {
                             AuthController.instance.logOut();
                           },
-                        ),
-                        ProfileActionButtons(
-                          text: 'Delete account',
-                          onTap: () {},
                         ),
                       ],
                     ),

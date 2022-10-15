@@ -56,7 +56,7 @@ final kAwnserCardText = TextStyle(
   fontSize: SizeConfig.safeBlockHorizontal * 5,
 );
 final kSignInButton = TextStyle(
-  color: Colors.black,
+  color: kDarkGrey,
   fontWeight: FontWeight.w700,
   fontSize: SizeConfig.safeBlockHorizontal * 4,
 );

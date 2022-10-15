@@ -7,6 +7,7 @@ import '../verifyEmail.dart';
 
 class AuthController extends GetxController {
   static String? useruid;
+  static bool canResetPassword = false;
   //AuthController.instance...
   static AuthController instance = Get.find();
   //email, password, name...
@@ -62,6 +63,13 @@ class AuthController extends GetxController {
             ),
           ),
         );
+          addUserDetails(
+        name: name,
+        lastname: lastName,
+        email: email,
+        uid: useruid!,
+        score: 0,
+      );
       }
       // if the user could not be created
       catch (e) {
@@ -84,13 +92,7 @@ class AuthController extends GetxController {
           ),
         );
       }
-      addUserDetails(
-        name: name,
-        lastname: lastName,
-        email: email,
-        uid: useruid!,
-        score: 0,
-      );
+    
     } else {
       Get.snackbar(
         'About name and lastname',
@@ -154,6 +156,51 @@ class AuthController extends GetxController {
         messageText: Text(
           e.toString(),
           style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future resetPassword(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      Get.back();
+      Get.snackbar(
+        'About password',
+        'Password reset message',
+        backgroundColor: Colors.greenAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Reset Email sent.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          "Password Reset email has been sent to $email, please follow the email instractions to reset your password.",
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 5));
+    } catch (e) {
+      Get.snackbar(
+        'About password',
+        'Password reset message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Email not found.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: const Text(
+          'Please provide an existing email adress.',
+          style: TextStyle(
             color: Colors.white,
           ),
         ),
