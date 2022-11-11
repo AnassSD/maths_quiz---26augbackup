@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:maths_quiz/account/AccountManagement.dart';
 import 'package:maths_quiz/account/PublicProfilePage.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
@@ -15,6 +16,7 @@ import 'package:maths_quiz/verifyEmail.dart';
 // String firstName = userInfo!.firstname!,
 //     lastName = userInfo!.lastname!,
 //     email = userInfo!.email!;
+String imageUrl = '';
 
 //
 class Profile extends StatefulWidget {
@@ -35,7 +37,7 @@ class _ProfileState extends State<Profile> {
 
   bool saved = false, profile = true;
 //
-  String imageUrl = '';
+
   //
   void pushOrEditImage() async {
     final image = await ImagePicker().pickImage(
@@ -65,16 +67,21 @@ class _ProfileState extends State<Profile> {
   //
 
   void getImage() async {
-    Reference ref = FirebaseStorage.instance
-        .ref()
-        .child('user/profile/${AuthController.useruid}');
     try {
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('user/profile/${AuthController.useruid}');
       await ref.getDownloadURL();
       ref.getDownloadURL().then((value) {
         setState(() {
           imageUrl = value;
         });
-      });
+        // ignore: invalid_return_type_for_catch_error
+      }).catchError((e) => {
+            setState((() {
+              imageUrl = '';
+            }))
+          });
     } catch (e) {
       // ignore: avoid_print
       print('file not found');
@@ -85,10 +92,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    //
-
     getImage();
-
     return Container(
       height: SizeConfig.safeBlockVertical * 92,
       padding: kColumnPadding,
@@ -111,8 +115,7 @@ class _ProfileState extends State<Profile> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: imageUrl == ''
-                              ? const AssetImage(
-                                      'images/lightgreybackground.png')
+                              ? const AssetImage('images/catDefaultAvatar.png')
                                   as ImageProvider
                               : NetworkImage(imageUrl),
                           fit: BoxFit.fill,
@@ -384,13 +387,23 @@ class _ProfileState extends State<Profile> {
                             });
                           },
                         ),
-                        ProfileButtons(
-                          text: 'Personal information',
-                          onTap: () {},
-                        ),
+                        //Account management
                         ProfileButtons(
                           text: 'Account management',
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(
+                                      SizeConfig.safeBlockHorizontal * 8),
+                                )),
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => const AccountManagement(),
+                              );
+                            });
+                          },
                         ),
                         ProfileButtons(
                           text: 'Notifications',
@@ -509,3 +522,21 @@ class _ProfileActionButtonsState extends State<ProfileActionButtons> {
 
 
 //TODO:  save data like name and age and photo, store exercices data on server 
+
+// ProfileButtons(
+//                           text: 'Personal information',
+//                           onTap: () {
+//                             setState(() {
+//                               showModalBottomSheet(
+//                                 shape: RoundedRectangleBorder(
+//                                     borderRadius: BorderRadius.vertical(
+//                                   top: Radius.circular(
+//                                       SizeConfig.safeBlockHorizontal * 8),
+//                                 )),
+//                                 isScrollControlled: true,
+//                                 context: context,
+//                                 builder: (context) => const PersonalInformation(),
+//                               );
+//                             });
+//                           },
+//                         ),

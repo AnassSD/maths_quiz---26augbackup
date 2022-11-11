@@ -103,8 +103,6 @@ class _ExercicesListState extends State<ExercicesList> {
                 size: SizeConfig.safeBlockHorizontal * 7,
               ),
               itemBuilder: (context) => [
-                //TODO: Finish the filter section
-                //TODO: Make Search work
                 const PopupMenuItem(
                   child: Text(
                     "Sort by",

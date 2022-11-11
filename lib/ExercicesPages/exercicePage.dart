@@ -552,7 +552,7 @@ class ConfirmationDialog extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () async {
+          onPressed: () {
             int count = 0;
             Navigator.of(context).popUntil((context) => count++ >= 2);
           },

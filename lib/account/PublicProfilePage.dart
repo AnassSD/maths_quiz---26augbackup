@@ -181,7 +181,7 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
     } catch (e) {
       // ignore: avoid_print
       print(
-        e.toString(),
+        " THE ERROR IS : ${e.toString()}",
       );
     }
   }
@@ -189,7 +189,7 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.safeBlockVertical * 90,
+      height: SizeConfig.safeBlockVertical * 80,
       padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 5),
       child: SingleChildScrollView(
         child: Column(
@@ -263,7 +263,7 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
             ),
             //App restart required text
             SizedBox(
-              height: SizeConfig.safeBlockVertical * 40,
+              height: SizeConfig.safeBlockVertical * 30,
             ),
             Text(
               'Note: Please restart the app to see any made changes.',

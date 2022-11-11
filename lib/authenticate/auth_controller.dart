@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:maths_quiz/splashscreen2.dart';
@@ -63,13 +64,13 @@ class AuthController extends GetxController {
             ),
           ),
         );
-          addUserDetails(
-        name: name,
-        lastname: lastName,
-        email: email,
-        uid: useruid!,
-        score: 0,
-      );
+        addUserDetails(
+          name: name,
+          lastname: lastName,
+          email: email,
+          uid: useruid!,
+          score: 0,
+        );
       }
       // if the user could not be created
       catch (e) {
@@ -92,7 +93,6 @@ class AuthController extends GetxController {
           ),
         );
       }
-    
     } else {
       Get.snackbar(
         'About name and lastname',
@@ -108,6 +108,119 @@ class AuthController extends GetxController {
         messageText: const Text(
           'Please enter both of your name and lastname to create your account.',
           style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
+
+  void deleteAcc(String uid) async {
+    //delete profile pic
+    try {
+      await FirebaseStorage.instance.ref().child('user/profile/$uid').delete();
+      // Get.snackbar(
+      //   'About User',
+      //   'User message',
+      //   backgroundColor: Colors.redAccent,
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   titleText: const Text(
+      //     'Account Deleted successfully.',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      //   messageText: const Text(
+      //     'Account no longer exists, all data are lost.',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // );
+    } catch (e) {
+      Get.snackbar(
+        'About User',
+        'User message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Account Delete failed.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+
+    ///
+    /// Delete document
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+    } catch (e) {
+      Get.snackbar(
+        'About User',
+        'User message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Account Delete failed.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+
+    // ///
+    // ///
+    // ///Delete current account
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+      Get.snackbar(
+        'About User',
+        'User message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Account Deleted successfully.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: const Text(
+          'Account no longer exists, all data are lost.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    } catch (e) {
+      Get.snackbar(
+        'About User',
+        'User message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Account Delete failed.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -164,6 +277,51 @@ class AuthController extends GetxController {
   }
 
   Future resetPassword(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      Get.back();
+      Get.snackbar(
+        'About password',
+        'Password reset message',
+        backgroundColor: Colors.greenAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Reset Email sent.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          "Password Reset email has been sent to $email, please follow the email instractions to reset your password.",
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 5));
+    } catch (e) {
+      Get.snackbar(
+        'About password',
+        'Password reset message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Email not found.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: const Text(
+          'Please provide an existing email adress.',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future resetPasswordWithoutPop(String email) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
       Get.back();
