@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:maths_quiz/ExercicesPages/exercicePage.dart';
+import 'package:maths_quiz/ExercicesPages/quizBrain.dart';
 import 'package:maths_quiz/account/AccountManagement.dart';
 import 'package:maths_quiz/account/PublicProfilePage.dart';
+import 'package:maths_quiz/authenticate/SignUpPage.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
@@ -27,6 +31,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
 //
+  var passwordController = TextEditingController();
   PageController pageController = PageController(initialPage: 0);
 
   int currentIndex = 0;
@@ -405,10 +410,12 @@ class _ProfileState extends State<Profile> {
                             });
                           },
                         ),
+                        //Notifications
                         ProfileButtons(
                           text: 'Notifications',
                           onTap: () {},
                         ),
+                        //LogOutbutton
                         ProfileActionButtons(
                           text: 'Log out',
                           onTap: () {
@@ -520,23 +527,28 @@ class _ProfileActionButtonsState extends State<ProfileActionButtons> {
   }
 }
 
+// ignore: must_be_immutable
+class UserDataPasswordInputConfirmation extends StatelessWidget {
+  String? hintText, label;
+  IconData? icon;
+  TextEditingController? textEditingController;
+  UserDataPasswordInputConfirmation({
+    Key? key,
+    required this.hintText,
+    required this.label,
+    required this.icon,
+    this.textEditingController,
+  }) : super(key: key);
 
-//TODO:  save data like name and age and photo, store exercices data on server 
-
-// ProfileButtons(
-//                           text: 'Personal information',
-//                           onTap: () {
-//                             setState(() {
-//                               showModalBottomSheet(
-//                                 shape: RoundedRectangleBorder(
-//                                     borderRadius: BorderRadius.vertical(
-//                                   top: Radius.circular(
-//                                       SizeConfig.safeBlockHorizontal * 8),
-//                                 )),
-//                                 isScrollControlled: true,
-//                                 context: context,
-//                                 builder: (context) => const PersonalInformation(),
-//                               );
-//                             });
-//                           },
-//                         ),
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: true,
+      onChanged: (value) {},
+      controller: textEditingController,
+      decoration: const InputDecoration.collapsed(
+        hintText: 'Password',
+      ),
+    );
+  }
+}

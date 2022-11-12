@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
@@ -15,6 +16,7 @@ class AccountManagement extends StatefulWidget {
 }
 
 class _AccountManagementState extends State<AccountManagement> {
+  var passwordController = TextEditingController();
   @override
   @override
   Widget build(BuildContext context) {
@@ -70,8 +72,79 @@ class _AccountManagementState extends State<AccountManagement> {
             //Reset password
             GestureDetector(
               onTap: () {
-                AuthController.instance.resetPassword(
-                  userInfo!.email!.trim(),
+                Get.defaultDialog(
+                  titlePadding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.safeBlockHorizontal * 5,
+                      vertical: SizeConfig.safeBlockVertical * 2),
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.safeBlockHorizontal * 5,
+                      vertical: SizeConfig.safeBlockVertical * 1),
+                  title: "Please confirm your password.",
+                  middleText: '',
+                  backgroundColor: kViolet,
+                  titleStyle: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: SizeConfig.safeBlockHorizontal * 5,
+                    color: Colors.white,
+                  ),
+                  radius: 30,
+                  //content
+                  content: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.safeBlockVertical * 2,
+                            horizontal: SizeConfig.safeBlockHorizontal * 5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50.0),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: UserDataPasswordInputConfirmation(
+                          textEditingController: passwordController,
+                          icon: Icons.key_outlined,
+                          label: 'Password',
+                          hintText: 'Type your password',
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () => Get.back(),
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: SizeConfig.safeBlockHorizontal * 5,
+                                color: kDarkGrey,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              //Write delete functon here
+                              AuthController.instance
+                                  .verifyAccBeforePasswordReset(
+                                passwordController.text.trim(),
+                              );
+                            },
+                            child: Text(
+                              'Confirm',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: SizeConfig.safeBlockHorizontal * 5,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               },
               child: Padding(
@@ -99,15 +172,171 @@ class _AccountManagementState extends State<AccountManagement> {
             Padding(
               padding: EdgeInsets.symmetric(
                   vertical: SizeConfig.safeBlockVertical * 1.5),
-              child: AccountManagementButtons(
-                text: 'Delete account ',
+              child: GestureDetector(
+                child: Text(
+                  'Delete Account',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: SizeConfig.safeBlockHorizontal * 5.5,
+                    color: Colors.redAccent,
+                  ),
+                ),
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        const AccDeleteConfirmationDialog(),
+                  Get.defaultDialog(
+                    titlePadding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.safeBlockHorizontal * 5,
+                        vertical: SizeConfig.safeBlockVertical * 2),
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.safeBlockHorizontal * 5,
+                        vertical: SizeConfig.safeBlockVertical * 1),
+                    title: 'Are you sure you want to Delete your Account?',
+                    middleText: '',
+                    backgroundColor: Colors.redAccent,
+                    titleStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: SizeConfig.safeBlockHorizontal * 6,
+                      color: Colors.white,
+                    ),
+                    radius: 30,
+                    //content
+                    content: Column(
+                      children: [
+                        Text(
+                          'All your Data and Progress will be permanently lost.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: SizeConfig.safeBlockHorizontal * 5,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 2,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () => Get.back(),
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: SizeConfig.safeBlockHorizontal * 5,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                //Write delete functon here
+                                Get.back();
+                                Get.defaultDialog(
+                                  titlePadding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.safeBlockHorizontal * 5,
+                                      vertical:
+                                          SizeConfig.safeBlockVertical * 2),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.safeBlockHorizontal * 5,
+                                      vertical:
+                                          SizeConfig.safeBlockVertical * 1),
+                                  title: "Please confirm your password.",
+                                  middleText: '',
+                                  backgroundColor: Colors.redAccent,
+                                  titleStyle: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize:
+                                        SizeConfig.safeBlockHorizontal * 5,
+                                    color: Colors.white,
+                                  ),
+                                  radius: 30,
+                                  //content
+                                  content: Column(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical:
+                                                SizeConfig.safeBlockVertical *
+                                                    2,
+                                            horizontal:
+                                                SizeConfig.safeBlockHorizontal *
+                                                    5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        child:
+                                            UserDataPasswordInputConfirmation(
+                                          textEditingController:
+                                              passwordController,
+                                          icon: Icons.key_outlined,
+                                          label: 'Password',
+                                          hintText: 'Type your password',
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () => Get.back(),
+                                            child: Text(
+                                              'Cancel',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    5,
+                                                color: kDarkGrey,
+                                              ),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              //Write delete functon here
+                                              AuthController.instance
+                                                  .verifyAccBeforeDelete(
+                                                passwordController.text.trim(),
+                                              );
+                                            },
+                                            child: Text(
+                                              'Confirm',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    5,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Delete',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: SizeConfig.safeBlockHorizontal * 5,
+                                  color: kDarkGrey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
-                  // AuthController.instance.logOut();
                 },
               ),
             ),
@@ -216,6 +445,31 @@ class AccDeleteConfirmationDialog extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class UserDataPasswordInputConfirmation extends StatelessWidget {
+  String? hintText, label;
+  IconData? icon;
+  TextEditingController? textEditingController;
+  UserDataPasswordInputConfirmation({
+    Key? key,
+    required this.hintText,
+    required this.label,
+    required this.icon,
+    this.textEditingController,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: true,
+      onChanged: (value) {},
+      controller: textEditingController,
+      decoration: const InputDecoration.collapsed(
+        hintText: 'Password',
+      ),
     );
   }
 }

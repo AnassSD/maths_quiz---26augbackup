@@ -38,8 +38,9 @@ class AuthController extends GetxController {
     }
   }
 
-  void register(String email, password, name, lastName) async {
-    if (name != '' && lastName != '') {
+  void register(
+      String email, String password, String name, String lastName) async {
+    if (name.replaceAll(' ', '') != '' && lastName.replaceAll(' ', '') != '') {
       try {
         //create user
         await auth.createUserWithEmailAndPassword(
@@ -115,6 +116,66 @@ class AuthController extends GetxController {
     }
   }
 
+  void verifyAccBeforePasswordReset(String password) async {
+    try {
+      await auth.currentUser
+          ?.reauthenticateWithCredential(EmailAuthProvider.credential(
+        email: userInfo!.email!,
+        password: password,
+      ));
+      resetPassword(userInfo!.email!.trim());
+    } catch (e) {
+      Get.snackbar(
+        'About Login',
+        'Login message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Login failed',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
+
+  void verifyAccBeforeDelete(String password) async {
+    try {
+      await auth.currentUser
+          ?.reauthenticateWithCredential(EmailAuthProvider.credential(
+        email: userInfo!.email!,
+        password: password,
+      ));
+      deleteAcc(userInfo!.uid!);
+    } catch (e) {
+      Get.snackbar(
+        'About Login',
+        'Login message',
+        backgroundColor: Colors.redAccent,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Login failed',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        messageText: Text(
+          e.toString(),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+  }
+
   void deleteAcc(String uid) async {
     //delete profile pic
     try {
@@ -138,24 +199,24 @@ class AuthController extends GetxController {
       //   ),
       // );
     } catch (e) {
-      Get.snackbar(
-        'About User',
-        'User message',
-        backgroundColor: Colors.redAccent,
-        snackPosition: SnackPosition.BOTTOM,
-        titleText: const Text(
-          'Account Delete failed.',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        messageText: Text(
-          e.toString(),
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      );
+      // Get.snackbar(
+      //   'About User',
+      //   'User message',
+      //   backgroundColor: Colors.redAccent,
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   titleText: const Text(
+      //     'Account Delete failed.',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      //   messageText: Text(
+      //     e.toString(),
+      //     style: const TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // );
     }
 
     ///
@@ -163,29 +224,26 @@ class AuthController extends GetxController {
     try {
       await FirebaseFirestore.instance.collection('users').doc(uid).delete();
     } catch (e) {
-      Get.snackbar(
-        'About User',
-        'User message',
-        backgroundColor: Colors.redAccent,
-        snackPosition: SnackPosition.BOTTOM,
-        titleText: const Text(
-          'Account Delete failed.',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        messageText: Text(
-          e.toString(),
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      );
+      // Get.snackbar(
+      //   'About User',
+      //   'User message',
+      //   backgroundColor: Colors.redAccent,
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   titleText: const Text(
+      //     'Account Delete failed.',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      //   messageText: Text(
+      //     e.toString(),
+      //     style: const TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // );
     }
-
-    // ///
-    // ///
-    // ///Delete current account
+    // //  Delete current account
     try {
       await FirebaseAuth.instance.currentUser!.delete();
       Get.snackbar(
