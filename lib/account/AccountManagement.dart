@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -79,7 +79,7 @@ class _AccountManagementState extends State<AccountManagement> {
                   contentPadding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.safeBlockHorizontal * 5,
                       vertical: SizeConfig.safeBlockVertical * 1),
-                  title: "Please confirm your password.",
+                  title: "Please confirm your current password.",
                   middleText: '',
                   backgroundColor: kViolet,
                   titleStyle: TextStyle(
@@ -356,7 +356,6 @@ class _AccountManagementState extends State<AccountManagement> {
   }
 }
 
-// ignore: must_be_immutable
 class AccountManagementButtons extends StatefulWidget {
   String? text;
   Function()? onTap;

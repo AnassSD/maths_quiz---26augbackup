@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
@@ -208,23 +209,6 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
                 ],
               ),
             ),
-            //Profile pic changing
-            GestureDetector(
-              onTap: () {
-                pushOrEditImage();
-              },
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.safeBlockVertical * 2),
-                child: Text(
-                  'Change profile picture',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: SizeConfig.safeBlockHorizontal * 5.5,
-                  ),
-                ),
-              ),
-            ),
             //Change first name
             Padding(
               padding: EdgeInsets.symmetric(
@@ -261,9 +245,107 @@ class _PublicProfilePageState extends State<PublicProfilePage> {
                 ],
               ),
             ),
+            //Profile pic changing
+            GestureDetector(
+              onTap: () {
+                pushOrEditImage();
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.safeBlockVertical * 1),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Change profile picture',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: SizeConfig.safeBlockHorizontal * 5.5,
+                      ),
+                    ),
+                    FaIcon(
+                      FontAwesomeIcons.angleRight,
+                      size: SizeConfig.safeBlockHorizontal * 7,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 1,
+            ),
+            //Remove Profile pic
+            GestureDetector(
+              onTap: () async {
+                try {
+                  await FirebaseStorage.instance
+                      .ref()
+                      .child('user/profile/${userInfo!.uid!}')
+                      .delete();
+                  Get.snackbar(
+                    'About User',
+                    'User message',
+                    backgroundColor: Colors.greenAccent,
+                    snackPosition: SnackPosition.BOTTOM,
+                    titleText: const Text(
+                      'Profile Picture Removed.',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    messageText: const Text(
+                      "Your profile picture has been removed.",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                } catch (e) {
+                  Get.snackbar(
+                    'About User',
+                    'User message',
+                    backgroundColor: Colors.redAccent,
+                    snackPosition: SnackPosition.BOTTOM,
+                    titleText: const Text(
+                      'Profile picture removing failed',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    messageText: const Text(
+                      "There isn't any profile picture.",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.safeBlockVertical * 1),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Remove profile picture',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: SizeConfig.safeBlockHorizontal * 5.5,
+                      ),
+                    ),
+                    FaIcon(
+                      FontAwesomeIcons.angleRight,
+                      size: SizeConfig.safeBlockHorizontal * 7,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
             //App restart required text
             SizedBox(
-              height: SizeConfig.safeBlockVertical * 30,
+              height: SizeConfig.safeBlockVertical * 27,
             ),
             Text(
               'Note: Please restart the app to see any made changes.',

@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:maths_quiz/ExercicesPages/exercicePage.dart';
-import 'package:maths_quiz/ExercicesPages/quizBrain.dart';
 import 'package:maths_quiz/account/AccountManagement.dart';
+import 'package:maths_quiz/account/NotificationsPage.dart';
 import 'package:maths_quiz/account/PublicProfilePage.dart';
-import 'package:maths_quiz/authenticate/SignUpPage.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
 import 'package:maths_quiz/constants/constantsColors.dart';
 import 'package:maths_quiz/constants/constantsTextStyles.dart';
@@ -413,13 +411,84 @@ class _ProfileState extends State<Profile> {
                         //Notifications
                         ProfileButtons(
                           text: 'Notifications',
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(
+                                      SizeConfig.safeBlockHorizontal * 8),
+                                )),
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => const NotificationsPage(),
+                              );
+                            });
+                          },
                         ),
                         //LogOutbutton
                         ProfileActionButtons(
                           text: 'Log out',
                           onTap: () {
-                            AuthController.instance.logOut();
+                            Get.defaultDialog(
+                              titlePadding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
+                                  vertical: SizeConfig.safeBlockVertical * 2),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
+                                  vertical: SizeConfig.safeBlockVertical * 1),
+                              title: 'Are you sure you want to Log out?',
+                              middleText: '',
+                              backgroundColor: Colors.redAccent,
+                              titleStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: SizeConfig.safeBlockHorizontal * 6,
+                                color: Colors.white,
+                              ),
+                              radius: 30,
+                              //content
+                              content: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () => Get.back(),
+                                        child: Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize:
+                                                SizeConfig.safeBlockHorizontal *
+                                                    5,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          //Write delete functon here
+                                          Get.back();
+                                          AuthController.instance.logOut();
+                                        },
+                                        child: Text(
+                                          'Log out',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize:
+                                                SizeConfig.safeBlockHorizontal *
+                                                    5,
+                                            color: kDarkGrey,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                         ),
                       ],
