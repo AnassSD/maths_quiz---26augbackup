@@ -63,7 +63,7 @@ class _ExercicesState extends State<Exercices> {
         context: context,
         builder: (BuildContext context) => const ResultPage(),
       );
-      await neutralize();
+      await neutralizeWithoutHeart();
       return 0;
     }
     //
@@ -653,6 +653,19 @@ Future<int> neutralize() async {
   next = false;
   buttonLabel = 'Check';
   livesNumber = 5;
+  selected = 0;
+  c1 = c2 = c3 = c4 = Colors.white;
+  shadowColor1 = shadowColor2 = shadowColor3 = shadowColor4 = kGreyShadowColor;
+  shadowVerticalBlur1 =
+      shadowVerticalBlur2 = shadowVerticalBlur3 = shadowVerticalBlur4 = 2;
+  questionNumber = 0;
+  return 0;
+}
+Future<int> neutralizeWithoutHeart() async {
+  falseAnswers = 0;
+  trueAnswers = 0;
+  next = false;
+  buttonLabel = 'Check';
   selected = 0;
   c1 = c2 = c3 = c4 = Colors.white;
   shadowColor1 = shadowColor2 = shadowColor3 = shadowColor4 = kGreyShadowColor;

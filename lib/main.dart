@@ -12,6 +12,7 @@ import 'ExercicesPages/exercicesList.dart';
 import 'constants/constantsColors.dart';
 import 'sizeConfig.dart';
 import 'mainPage/mainPage.dart';
+import 'ExercicesMainPage/exMainPage.dart';
 
 Future<void> main() async {
   //
@@ -141,7 +142,7 @@ class _QuizState extends State<Quiz> {
           scrollDirection: Axis.horizontal,
           children: const [
             MainPage(),
-            ExercicesList(),
+            ExercicesPage(),
             AccMainPage(),
           ],
         ),
