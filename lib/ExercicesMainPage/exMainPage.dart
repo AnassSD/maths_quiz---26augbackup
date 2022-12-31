@@ -1,13 +1,17 @@
 // ignore_for_file: file_names
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:maths_quiz/ExercicesPages/exercicesBox.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:maths_quiz/ExercicesMainPage/mainExercicesLessons.dart';
+import 'package:maths_quiz/questions/content.dart';
+import 'package:maths_quiz/questions/questions.dart';
 import '../constants/constantsTextStyles.dart';
 import '../sizeConfig.dart';
 
+// ignore: must_be_immutable
 class ExercicesPage extends StatefulWidget {
-  const ExercicesPage({Key? key}) : super(key: key);
+  Questions questionsObjct;
+  ExercicesPage(this.questionsObjct, {Key? key}) : super(key: key);
 
   @override
   State<ExercicesPage> createState() => _ExercicesPageState();
@@ -16,6 +20,7 @@ class ExercicesPage extends StatefulWidget {
 class _ExercicesPageState extends State<ExercicesPage> {
   @override
   Widget build(BuildContext context) {
+    Questions questions = widget.questionsObjct;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -75,47 +80,80 @@ class _ExercicesPageState extends State<ExercicesPage> {
       ),
       body: SafeArea(
         child: Container(
+          width: SizeConfig.safeBlockHorizontal * 100,
           height: SizeConfig.safeBlockVertical * 100,
           padding: kColumnPadding,
+          color: Colors.white,
           child: Expanded(
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('exercices')
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) => Container(
-                      // width: SizeConfig.safeBlockHorizontal*92,
-                      height: SizeConfig.safeBlockVertical * 24,
-                      padding:
-                          EdgeInsets.all(SizeConfig.safeBlockHorizontal * 6),
-                      margin: EdgeInsets.symmetric(
-                          vertical: SizeConfig.safeBlockVertical * 1.5),
-                      decoration: BoxDecoration(
-                          // image: DecorationImage(
-                          //   image: AssetImage('images/$image'),
-                          //   fit: BoxFit.fill,
-                          // ),
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.safeBlockHorizontal * 8),
-                          color: const Color.fromARGB(255, 236, 151, 144)),
-                      child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          snapshot.data!.docs[index]['title'],
-                          style: kWidgetTitleStyles,
-                        ),
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
+            child: ListView.builder(
+              itemCount: questions.question.length,
+              itemBuilder: (context, index) =>
+                  MainExerciceLessonWidget(questions: questions, index: index),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MainExerciceLessonWidget extends StatelessWidget {
+  const MainExerciceLessonWidget({
+    Key? key,
+    required this.questions,
+    required this.index,
+  }) : super(key: key);
+
+  final Questions questions;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    Content lesson = questions.question[index];
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+          () => MainExercicesLessons(lesson: lesson),
+          transition: Transition.cupertino,
+        );
+      },
+      child: Container(
+        height: SizeConfig.safeBlockVertical * 24,
+        padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 6),
+        margin:
+            EdgeInsets.symmetric(vertical: SizeConfig.safeBlockVertical * 1.5),
+        decoration: BoxDecoration(
+            // image: DecorationImage(
+            //   image: AssetImage('images/$image'),
+            //   fit: BoxFit.fill,
+            // ),
+            borderRadius:
+                BorderRadius.circular(SizeConfig.safeBlockHorizontal * 8),
+            color: const Color.fromARGB(255, 236, 151, 144)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                questions.question[index].age,
+                style: kLessonAge,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  questions.question[index].title,
+                  style: kLessonTitle,
+                ),
+                FaIcon(
+                  FontAwesomeIcons.angleRight,
+                  size: SizeConfig.safeBlockHorizontal * 6,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

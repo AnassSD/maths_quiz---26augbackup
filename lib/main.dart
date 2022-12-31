@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,9 +9,11 @@ import 'package:maths_quiz/ExercicesPages/exercicePage.dart';
 import 'package:maths_quiz/account/account.dart';
 import 'package:maths_quiz/account/profile.dart';
 import 'package:maths_quiz/authenticate/auth_controller.dart';
+import 'package:maths_quiz/questions/questions.dart';
 import 'package:maths_quiz/splashscreen.dart';
 import 'ExercicesPages/exercicesList.dart';
 import 'constants/constantsColors.dart';
+import 'questions/content.dart';
 import 'sizeConfig.dart';
 import 'mainPage/mainPage.dart';
 import 'ExercicesMainPage/exMainPage.dart';
@@ -132,25 +136,43 @@ class _QuizState extends State<Quiz> {
         ],
       ),
       body: SafeArea(
-        child: PageView(
-          controller: Quiz.pageController,
-          onPageChanged: (page) {
-            setState(() {
-              _currentIndex = page;
-            });
+        child: FutureBuilder<Questions>(
+          future: getQuestions(context),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              Questions objct = snapshot.data!;
+              return PageView(
+                controller: Quiz.pageController,
+                onPageChanged: (page) {
+                  setState(() {
+                    _currentIndex = page;
+                  });
+                },
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const MainPage(),
+                  ExercicesPage(objct),
+                  const AccMainPage(),
+                ],
+              );
+            } else {
+              return const Text('waiting');
+            }
           },
-          scrollDirection: Axis.horizontal,
-          children: const [
-            MainPage(),
-            ExercicesPage(),
-            AccMainPage(),
-          ],
         ),
       ),
     );
   }
 }
 
+Future<Questions> getQuestions(BuildContext context) async {
+  final response = await rootBundle.loadString('json/questions.json');
+  final json = jsonDecode(response)['content'];
+  final longeur = json as List;
 
-//TODO: put Profile content, Settings...... in place of above containers in PageView
-
+  var objct = Questions(question: [Content.fromJson(json[0])]);
+  for (int i = 1; i < longeur.length; i++) {
+    objct.question.add(Content.fromJson(json[i]));
+  }
+  return objct;
+}

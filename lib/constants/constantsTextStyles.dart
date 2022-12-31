@@ -10,7 +10,23 @@ final EdgeInsets kColumnPadding = EdgeInsets.only(
   left: SizeConfig.safeBlockHorizontal * 4,
   right: SizeConfig.safeBlockHorizontal * 4,
 );
-
+final kLessonTitle = TextStyle(
+  fontWeight: FontWeight.w800,
+  fontSize: SizeConfig.safeBlockHorizontal * 5.5,
+);
+final kLessonAge = TextStyle(
+  fontWeight: FontWeight.w800,
+  fontSize: SizeConfig.safeBlockHorizontal * 4.7,
+);
+final kScoreNumber = TextStyle(
+  fontWeight: FontWeight.w800,
+  fontSize: SizeConfig.safeBlockHorizontal * 5,
+);
+final kScorePoint = TextStyle(
+  fontWeight: FontWeight.w700,
+  fontSize: SizeConfig.safeBlockHorizontal * 4.5,
+  color: const Color.fromARGB(255, 43, 42, 42),
+);
 // Used in Greeting+Name in the main page
 final kTextStyleName = TextStyle(
   fontWeight: FontWeight.w800,

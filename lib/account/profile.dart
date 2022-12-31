@@ -14,10 +14,7 @@ import 'package:maths_quiz/constants/constantsTextStyles.dart';
 import 'package:maths_quiz/sizeConfig.dart';
 import 'package:maths_quiz/verifyEmail.dart';
 
-//
-// String firstName = userInfo!.firstname!,
-//     lastName = userInfo!.lastname!,
-//     email = userInfo!.email!;
+
 String imageUrl = '';
 
 //

@@ -2,14 +2,25 @@
     "content": [
         {
             "title": "Complexe",
+            "image": "",
+            "age": "bac",
             "lessons": [
                 {
-                    "lessonTitle": "Argument",
+                    "lessonTitle": "Argument1",
                     "score": 30,
                     "difficulty": "Easy",
                     "problems": [
                         {
-                            "question": "What is 2z = 1+i",
+                            "question": "11111What is 2z = 1+i",
+                            "answers": [
+                                "111320",
+                                "3232",
+                                "32342"
+                            ],
+                            "correctAnswer": 2
+                        },
+                        {
+                            "question": "222What is 2z = 1+i",
                             "answers": [
                                 "320",
                                 "3232",
@@ -18,30 +29,30 @@
                             "correctAnswer": 0
                         },
                         {
-                            "question": "What is 2z = 1+i",
-                            "awnsers": [
+                            "question": "333What is 2z = 1+i",
+                            "answers": [
                                 "320",
                                 "3232",
                                 "32342"
                             ],
-                            "correct": 0
-                        },
-                        {
-                            "question": "What is 2z = 1+i",
-                            "awnsers": [
-                                "320",
-                                "3232",
-                                "32342"
-                            ],
-                            "correct": 0
+                            "correctAnswer": 0
                         }
                     ]
                 },
                 {
-                    "lessonTitle": "Argument",
-                    "score": 30,
-                    "difficulty": "Easy",
+                    "lessonTitle": "Module",
+                    "score": 20,
+                    "difficulty": "Hard",
                     "problems": [
+                        {
+                            "question": "What is 2z = 1+i2",
+                            "answers": [
+                                "320",
+                                "3232",
+                                "32342"
+                            ],
+                            "correctAnswer": 0
+                        },
                         {
                             "question": "What is 2z = 1+i",
                             "answers": [
@@ -53,21 +64,12 @@
                         },
                         {
                             "question": "What is 2z = 1+i",
-                            "awnsers": [
+                            "answers": [
                                 "320",
                                 "3232",
                                 "32342"
                             ],
-                            "correct": 0
-                        },
-                        {
-                            "question": "What is 2z = 1+i",
-                            "awnsers": [
-                                "320",
-                                "3232",
-                                "32342"
-                            ],
-                            "correct": 0
+                            "correctAnswer": 0
                         }
                     ]
                 }

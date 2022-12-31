@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
-class Content {
+class blabla {
   String? title, awnser1, awnser2, awnser3, awnser4;
   String? questionText;
   int? rightIndex;
-  Content(
+  blabla(
       {this.title,
       this.awnser1,
       this.awnser2,
@@ -14,8 +14,8 @@ class Content {
       this.rightIndex});
 }
 
-List<Content> page1 = [
-      Content(
+List<blabla> page1 = [
+      blabla(
           questionText:
               r'Avoir \(\cos(\theta) =-\frac{1}{2}\) et \(\sin(\theta) = \frac{\sqrt{3}}{2}\). Alors',
           awnser1: r'\theta = \frac{2\pi}{3}',
@@ -23,7 +23,7 @@ List<Content> page1 = [
           awnser3: r'\theta = -\frac{2\pi}{3}',
           awnser4: r'\theta = -\frac{\pi}{3}',
           rightIndex: 1),
-      Content(
+      blabla(
         questionText:
             r'Choisir le somme supérieur a cent',
         awnser1: r'37 + 48',
@@ -32,7 +32,7 @@ List<Content> page1 = [
         awnser4: r'70 + 13',
         rightIndex: 2,
       ),
-      Content(
+      blabla(
           questionText:
               r'Avoir hhh \(\cos(\theta) =-\frac{1}{2}\) et \(\sin(\theta) = \frac{\sqrt{3}}{2}\). Alors',
           awnser1: r'\theta = \frac{2\pi}{3}',
@@ -40,7 +40,7 @@ List<Content> page1 = [
           awnser3: r'\theta = -\frac{2\pi}{3}',
           awnser4: r'\theta = -\frac{\pi}{3}',
           rightIndex: 1),
-      Content(
+      blabla(
         questionText:
             'Which of the following statements about the domain and range of a relation is always true?',
         awnser1: 'Tblabalalalallalalal.',
@@ -49,7 +49,7 @@ List<Content> page1 = [
         awnser4: '322',
         rightIndex: 2,
       ),
-      Content(
+      blabla(
           questionText:
               r'Avoir \(\cos(\theta) =-\frac{1}{2}\) et \(\sin(\theta) = \frac{\sqrt{3}}{2}\). Alors',
           awnser1: r'\theta = \frac{2\pi}{3}',
@@ -57,7 +57,7 @@ List<Content> page1 = [
           awnser3: r'\theta = -\frac{2\pi}{3}',
           awnser4: r'\theta = -\frac{\pi}{3}',
           rightIndex: 1),
-      Content(
+      blabla(
           questionText:
               r'Avoir \(\cos(\theta) =-\frac{1}{2}\) et \(\sin(\theta) = \frac{\sqrt{3}}{2}\). Alors',
           awnser1: r'\theta = \frac{2\pi}{3}',
@@ -67,7 +67,7 @@ List<Content> page1 = [
           rightIndex: 1),
     ],
     page2 = [
-      Content(
+      blabla(
           questionText:
               'Which owf the following statements about functions and relations is always true?',
           awnser1: 'A adedwW always a relation.',
@@ -75,7 +75,7 @@ List<Content> page1 = [
           awnser3: 'A relation must have at least two ordered pairs.',
           awnser4: '322',
           rightIndex: 1),
-      Content(
+      blabla(
         questionText:
             'Which of the following statements about the domain and range of a relation is always true?',
         awnser1: 'Tblabalalalallalalal.',
@@ -86,7 +86,7 @@ List<Content> page1 = [
       )
     ],
     page3 = [
-      Content(
+      blabla(
           questionText:
               'Which of the following statements about functions and relations is always true?',
           awnser1: 'A adedwW always a relation.',
@@ -94,7 +94,7 @@ List<Content> page1 = [
           awnser3: 'A relation must have at least two ordered pairs.',
           awnser4: '322',
           rightIndex: 1),
-      Content(
+      blabla(
         questionText:
             'Which of the following statements about the domain and range of a relation is always true?',
         awnser1: 'Tblabalalalallalalal.',
@@ -105,7 +105,7 @@ List<Content> page1 = [
       )
     ],
     page4 = [
-      Content(
+      blabla(
           questionText:
               'Which of the following statements about functions and relations is always true?',
           awnser1: 'A adedwW always a relation.',
@@ -113,7 +113,7 @@ List<Content> page1 = [
           awnser3: 'A relation must have at least two ordered pairs.',
           awnser4: '322',
           rightIndex: 1),
-      Content(
+      blabla(
         questionText:
             'Which of the following statements about the domain and range of a relation is always true?',
         awnser1: 'Tblabalalalallalalal.',
@@ -126,7 +126,7 @@ List<Content> page1 = [
 int questionNumber = 0;
 
 class QuizBrain {
-  List<List<Content>> pages = [
+  List<List<blabla>> pages = [
     page1,
     page2,
     page3,
